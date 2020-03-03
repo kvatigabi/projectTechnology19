@@ -1,5 +1,6 @@
 #include <Servo.h>
 
+#define LED_NOTIF A0 //notification led to let us know if changeLights is running
 #define LED_G1 2
 #define LED_Y1 3
 #define LED_R1 4
@@ -21,7 +22,7 @@ int distance;
 Servo servo1;
 
 int ledPins[] = {
-  LED_G1, LED_Y1, LED_R1, LED_G2, LED_Y2, LED_R2, LED_G3, LED_Y3, LED_R3, SERVO_PIN
+  LED_G1, LED_Y1, LED_R1, LED_G2, LED_Y2, LED_R2, LED_G3, LED_Y3, LED_R3, SERVO_PIN, LED_NOTIF
 };
 
 void setup() {
@@ -59,14 +60,18 @@ void loop() {
 
   //this is were the magic happens
   if ((distance < 14) && (!isTurned)) { // check if there is car in front and servo is NOT turned
+    digitalWrite(LED_NOTIF, HIGH);
     servo1.write(70);//servo right
     isTurned = true; // boolean to tell its looking front
     changeLights();//change the lights!
+    digitalWrite(LED_NOTIF, LOW);
   }
   else if ((distance < 10) && (isTurned)) { //check if we have turned and there is a car ahead of us
+    digitalWrite(LED_NOTIF, HIGH);
     servo1.write(10); //turn servo to right
     isTurned = false; //set bool to false
     changeLights();//change lights again
+    digitalWrite(LED_NOTIF, LOW);
   }
 
 
