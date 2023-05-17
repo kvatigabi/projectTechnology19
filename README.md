@@ -1,5 +1,5 @@
 # projectTechnology19
-2019 Arduino based project for my school but upgraded.
+2019 Arduino based project for 7th grade.
 Further documentation to be included...
 
 # Parts list
